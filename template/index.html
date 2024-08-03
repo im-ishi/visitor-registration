@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .success-message {
+            color: green;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}-message success-message">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <h1>Visitor Registration</h1>
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="from_date">From Date:</label>
+                <input type="date" id="from_date" name="from_date" min="{{ today }}" required>
+            </div>
+            <div class="form-group">
+                <label for="to_date">To Date:</label>
+                <input type="date" id="to_date" name="to_date" min="{{ today }}" required>
+            </div>
+            <div class="form-group">
+                <label for="number_of_people">Number of People:</label>
+                <input type="number" id="number_of_people" name="number_of_people" required>
+            </div>
+            <div class="form-group">
+                <label for="adhaar_number">Aadhaar Number:</label>
+                <input type="text" id="adhaar_number" name="adhaar_number" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle_number">Vehicle Number:</label>
+                <input type="text" id="vehicle_number" name="vehicle_number" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <a href="/registrations">View All Registrations</a>
+    </div>
+
+    <script>
+        // JavaScript to ensure 'to_date' is after 'from_date'
+        document.addEventListener('DOMContentLoaded', function() {
+            const fromDateInput = document.getElementById('from_date');
+            const toDateInput = document.getElementById('to_date');
+
+            function validateDates() {
+                const fromDate = new Date(fromDateInput.value);
+                const toDate = new Date(toDateInput.value);
+
+                if (fromDate && toDate && fromDate > toDate) {
+                    toDateInput.setCustomValidity('To Date must be after From Date.');
+                } else {
+                    toDateInput.setCustomValidity('');
+                }
+            }
+
+            fromDateInput.addEventListener('change', validateDates);
+            toDateInput.addEventListener('change', validateDates);
+        });
+    </script>
+</body>
+</html>
+
