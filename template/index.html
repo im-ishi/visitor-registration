@@ -59,6 +59,18 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        .view-registrations {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+        .view-registrations:hover {
+            color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -99,13 +111,20 @@
                 <label for="vehicle_number">Vehicle Number:</label>
                 <input type="text" id="vehicle_number" name="vehicle_number" required>
             </div>
+            <div class="form-group">
+                <label for="mobile_number">Mobile Number:</label>
+                <input type="text" id="mobile_number" name="mobile_number" required>
+            </div>
+            <div class="form-group">
+                <label for="email_id">Email ID:</label>
+                <input type="email" id="email_id" name="email_id" required>
+            </div>
             <button type="submit">Submit</button>
         </form>
-        <a href="/registrations">View All Registrations</a>
+        <a href="/registrations" class="view-registrations">View All Registrations</a>
     </div>
 
     <script>
-        // JavaScript to ensure 'to_date' is after 'from_date'
         document.addEventListener('DOMContentLoaded', function() {
             const fromDateInput = document.getElementById('from_date');
             const toDateInput = document.getElementById('to_date');
