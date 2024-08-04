@@ -1,0 +1,9 @@
+runtime: python39  # or python310 if you're using Python 3.10
+
+instance_class: F1
+
+handlers:
+- url: /.*
+  script: auto
+
+entrypoint: gunicorn -b :$PORT app:app
